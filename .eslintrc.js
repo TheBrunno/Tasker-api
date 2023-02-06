@@ -12,5 +12,13 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'no-console': 'off',
+    'class-methods-use-this': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'no-param-reassign': 'off',
+    'no-await-in-loop': 'off',
+    'no-plusplus': 'off',
+    'no-empty-function': 'off',
+    camelcase: 'off',
   },
 };
