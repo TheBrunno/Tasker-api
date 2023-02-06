@@ -21,6 +21,29 @@ class UserController {
       });
     }
   }
+
+  async update(req, res) {
+    try {
+      const user = await User.findByPk(req.userId);
+      const { nome = '', email = '' } = req.body;
+      const change = {};
+
+      if (!user) {
+        return res.status(400).json({
+          errors: ['Usuario não encontrado'],
+        });
+      }
+
+      if (nome) change.nome = nome;
+      if (email) change.email = email;
+
+      return res.json(await user.update(change));
+    } catch (err) {
+      return res.status(400).json({
+        errors: err.errors.map((error) => error.message),
+      });
+    }
+  }
 }
 
 export default new UserController();
