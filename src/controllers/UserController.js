@@ -11,6 +11,16 @@ class UserController {
       });
     }
   }
+
+  async index(req, res) {
+    try {
+      return res.json(await User.findAll({ attributes: ['id', 'nome', 'email'] }));
+    } catch (err) {
+      return res.status(400).json({
+        errors: err.errors.map((error) => error.message),
+      });
+    }
+  }
 }
 
 export default new UserController();
