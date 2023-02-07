@@ -44,6 +44,25 @@ class UserController {
       });
     }
   }
+
+  async delete(req, res) {
+    try {
+      const user = await User.findByPk(req.userId);
+
+      if (!user) {
+        return res.status(400).json({
+          errors: ['Usuario não encontrado'],
+        });
+      }
+
+      await user.destroy();
+      return res.json(null);
+    } catch (err) {
+      return res.status(400).json({
+        errors: err.errors.map((error) => error.message),
+      });
+    }
+  }
 }
 
 export default new UserController();
