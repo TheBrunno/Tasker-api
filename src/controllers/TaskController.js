@@ -17,11 +17,9 @@ class TaskController {
 
       if (!user_id) return res.sendStatus(401);
 
-      if (status) {
-        task = await Task.create({ nome, status, user_id });
-      } else {
-        task = await Task.create({ nome, user_id });
-      }
+      if (status) task = await Task.create({ nome, status, user_id });
+      else task = await Task.create({ nome, user_id });
+
       return res.json(task);
     } catch (_) {
       return res.sendStatus(400);
