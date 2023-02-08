@@ -33,7 +33,6 @@ class TaskController {
       if (!nome && !status) return res.sendStatus(400);
 
       const task = await Task.findByPk(req.params.id);
-      console.log(task);
 
       if (!task) return res.sendStatus(400);
 
@@ -42,6 +41,20 @@ class TaskController {
       else if (nome) await task.update({ nome });
 
       return res.json(task);
+    } catch (_) {
+      return res.sendStatus(400);
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const task = await Task.findByPk(req.params.id);
+
+      if (!task) return res.sendStatus(400);
+
+      await task.destroy();
+
+      return res.json(null);
     } catch (_) {
       return res.sendStatus(400);
     }
