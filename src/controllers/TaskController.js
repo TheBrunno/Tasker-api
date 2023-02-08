@@ -25,6 +25,27 @@ class TaskController {
       return res.sendStatus(400);
     }
   }
+
+  async update(req, res) {
+    try {
+      const { nome = '', status = '' } = req.body;
+
+      if (!nome && !status) return res.sendStatus(400);
+
+      const task = await Task.findByPk(req.params.id);
+      console.log(task);
+
+      if (!task) return res.sendStatus(400);
+
+      if (status && nome) await task.update({ nome, status });
+      else if (status) await task.update({ status });
+      else if (nome) await task.update({ nome });
+
+      return res.json(task);
+    } catch (_) {
+      return res.sendStatus(400);
+    }
+  }
 }
 
 export default new TaskController();
